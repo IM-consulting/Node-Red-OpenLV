@@ -2,7 +2,14 @@
 
 This is the repository for the Node-Red Docker Container on the OpenLV Platform.
 
-#OpenLV configuration
+# MQTTS Certificates
+
+The Makefile used to generate the keys is available [here](./keys/Makefile).
+Make sure you copy your key and cert to the appropriate folder for production;
+and when you build the Docker container, set the
+[environment](./index.js#L6) properly.
+
+# OpenLV configuration
 
 This is the format of the configuration file with all supported keys and their
 default values:
@@ -33,8 +40,38 @@ You can send any combination of fields, and any lacking will be supplied the
 default value. You can technically send an empty config, and the container will
 startup fine. Here are descriptions of the different ContainerConfig fields:
 
+### ContainerConfig.adminRoot
+This is the URL used to access the Admin UI, set to false to disable it. The
+default is '/editor'.
 
-### ContainerConfig.flows --
+### ContainerConfig.adminAuth
+This is an array of user credentials allowed to log into the Admin UI, with
+associated permissions ('read' for read-only, '*' for everything). The password
+field must be a valid bcrypt hash, otherwise no one will be able to login
+successfully. You may add as many users as you like.
+The one default user is:
+  username: 'admin'
+  password: 'password'
+
+### ContainerConfig.auth
+This is the username and password required to access any of the output URLs
+defined in the flows. The password field must be a valid bcrypt hash, otherwise
+no one will be able to login successfully.
+The container will use the default values if either or both are not supplied.
+The defaults are:
+  username: 'user'
+  password: 'password' (hashed of course)
+
+### ContainerConfig.nodeRoot
+This is the root URL used by Node-Red to display flow outputs. It will be
+prepended to any URL node defined in the flows. The default is merely the root
+index.
+
+### ContainerConfig.dash
+This is the URL used by Node-Red's dashboard node. Don't let it overlap with
+any flow definitions. Note there is no leading forward-slash.
+
+### ContainerConfig.flows
 This is a complete set of flows sent to Node-Red's setFlows function. This
 container has all the default nodes installed, and also the following:
   node-red-contrib-facebook-messenger-writer
@@ -54,7 +91,7 @@ Editor UI:
   select All Flows
 This is the meat of the container, as without any flows Node-Red will sit idle.
 
-### credentials
+### Credentials
 
 For external API functionality, you must add the credentials manually as
 Node-Red does not export this information. Generally, the instructions for how
@@ -142,38 +179,6 @@ lines:
     "credentials":{"userid":"...","password":"..."},
 }
 ```
-
-
-### ContainerConfig.adminRoot
-This is the URL used to access the Admin UI, set to false to disable it. The
-default is '/editor'.
-
-### ContainerConfig.adminAuth
-This is an array of user credentials allowed to log into the Admin UI, with
-associated permissions ('read' for read-only, '*' for everything). The password
-field must be a valid bcrypt hash, otherwise no one will be able to login
-successfully. You may add as many users as you like.
-The one default user is:
-  username: 'admin'
-  password: 'password'
-
-### ContainerConfig.auth
-This is the username and password required to access any of the output URLs
-defined in the flows. The password field must be a valid bcrypt hash, otherwise
-no one will be able to login successfully.
-The container will use the default values if either or both are not supplied.
-The defaults are:
-  username: 'user'
-  password: 'password' (hashed of course)
-
-### ContainerConfig.nodeRoot
-This is the root URL used by Node-Red to display flow outputs. It will be
-prepended to any URL node defined in the flows. The default is merely the root
-index.
-
-### ContainerConfig.dash
-This is the URL used by Node-Red's dashboard node. Don't let it overlap with
-any flow definitions. Note there is no leading forward-slash.
 
 # Node-Red Flow OpenLV MQTT access
 
