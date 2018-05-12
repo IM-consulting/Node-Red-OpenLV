@@ -1,0 +1,45 @@
+{
+    "name": "node-red-lv-cap",
+    "version": "0.0.1",
+    "description": "A visual tool for wiring the Internet of Things, embedded on LV-CAP",
+    "homepage": "http://nodered.org",
+    "license": "Apache-2.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/node-red/node-red-docker.git"
+    },
+    "main": "node_modules/node-red/red/red.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "contributors": [
+        {
+            "name": "Dave Conway-Jones"
+        },
+        {
+            "name": "Nick O'Leary"
+        },
+        {
+            "name": "James Thomas"
+        },
+        {
+            "name": "Ian McEachern"
+        }
+    ],
+    "dependencies": {
+        "lv-cap": "1.1.1",
+        "basic-auth": "1.1.0",
+        "bcryptjs": "2.4.3",
+        "express": "4.*.*",
+        "http-shutdown": "1.2.*",
+        "node-red": "0.18.4",
+        "node-red-contrib-facebook-messenger-writer": "*",
+        "node-red-contrib-googlechart": "*",
+        "node-red-dashboard": "*",
+        "node-red-node-dropbox": "*",
+        "node-red-node-google": "*"
+    },
+    "engines": {
+        "node": "6.*.*"
+    }
+}
