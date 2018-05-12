@@ -1,12 +1,12 @@
 {
     "name": "node-red-lv-cap",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "A visual tool for wiring the Internet of Things, embedded on LV-CAP",
     "homepage": "http://nodered.org",
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
-        "url": "https://github.com/node-red/node-red-docker.git"
+        "url": "https://github.com/techieyann/Node-Red-OpenLV.git"
     },
     "main": "node_modules/node-red/red/red.js",
     "scripts": {
