@@ -13,7 +13,7 @@ This README covers:
 An example of how to build a Node-Red Docker container for development at v0.0.1
 
 ```bash
-git clone https://github.com/techieyann/Node-Red-OpenLV.git
+git clone https://github.com/IM-consulting/Node-Red-OpenLV.git
 ```
 Build and add certs following [these](#mqtts-certificates) instructions.
 ```bash
