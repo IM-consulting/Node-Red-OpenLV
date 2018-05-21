@@ -3,9 +3,24 @@
 This is the repository for the Node-Red Docker Container on the OpenLV Platform.
 This README covers:
 
+* [Container Construction](#container-construction)
 * [MQTTS Certificates](#mqtts-certificates)
 * [OpenLV Configuration](#openlv-configuration)
 * [Node-Red API](#node-red-api)
+
+# Container Construction
+
+An example of how to build a Node-Red Docker container for development at v0.0.1
+
+```bash
+git clone https://github.com/techieyann/Node-Red-OpenLV.git
+```
+Build and add certs following [these](#mqtts-certificates) instructions.
+```bash
+docker build Node-Red-OpenLV/. -t imconsulting/node-red:0.0.1
+docker save imconsulting/node-red:0.0.1 | xz -z -6 --x86 --lzma2 --threads=0 > imconsulting_node-red_00.tar
+```
+You should now have a tarball of a development Node-Red Docker container.
 
 # MQTTS Certificates
 
