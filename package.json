@@ -6,7 +6,7 @@
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
-        "url": "https://github.com/techieyann/Node-Red-OpenLV.git"
+        "url": "https://github.com/IM-consulting/Node-Red-OpenLV.git"
     },
     "main": "node_modules/node-red/red/red.js",
     "scripts": {
