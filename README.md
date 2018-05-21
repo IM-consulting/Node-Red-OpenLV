@@ -10,36 +10,36 @@ This README covers:
 
 # Container Construction
 
-An example of how to build a Node-Red Docker container for development at v0.0.1
+An example of how to construct `imconsulting_node-red_00.tar` for production at
+v1.0.0
 
 ```bash
 git clone https://github.com/IM-consulting/Node-Red-OpenLV.git
 ```
 [Build](#mqtts-certificates) the .key and .crt files, and place them in the
-appropriate folder depending on your environment
-* Development: `/keys/dev/`
-* Production: `/keys/prod/`
-Then set the environment in [index.js](./index.js#L6):
+production key folder: [`/keys/prod`](./keys/prod)
+
+Then set the correct environment in [index.js](./index.js#L6):
 ```javascript
-var env = 'dev';//'prod';
+var env = 'prod';
 ```
 Once you have set up the MQTTs cert and key properly, you can construct a
 tarball:
 ```bash
-docker build Node-Red-OpenLV/. -t imconsulting/node-red:0.0.1
-docker save imconsulting/node-red:0.0.1 | xz -z -6 --x86 --lzma2 --threads=0 > imconsulting_node-red_00.tar
+docker build Node-Red-OpenLV/. -t imconsulting/node-red:1.0.0
+docker save imconsulting/node-red:1.0.0 | xz -z -6 --x86 --lzma2 --threads=0 > imconsulting_node-red_00.tar
 ```
-You should now have a tarball of a development Node-Red Docker container.
+You have now constructed a Docker container tagged at 1.0.0, and exported a
+tarball you can use on the OpenLV platform.
 
 # MQTTS Certificates
 
 The Makefile used to generate the keys is available [here](./keys/Makefile).
-Both production and development expect two files:
+The only difference between production and development is the version number in
+the Makefile, and that you sign the certificate yourself for development. Both
+environments expect two files:
 * imconsulting_node-red.crt
 * imconsulting_node-red.key
-The only difference will be the version number in the Makefile, and that you
-sign the certificate yourself for development.
-
 
 # OpenLV configuration
 
