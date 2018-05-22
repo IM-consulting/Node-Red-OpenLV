@@ -3,45 +3,6 @@
 # Application version string. This is the EA Quality System version and must be incremented for every release.
 APP_VER=0.0.6
 
-# libraries needed
-LIB= -lpthread
-
-# put C++ compiler into C++0x mode
-CXXFLAGS+= -std=c++0x -O2
-
-# debugging and warnings
-CPPFLAGS+=-g -Wall -Werror
-LDFLAGS+=-g -Wall
-
-# where we output documentation to
-DOC_DIR=doxygen_output
-# where to find Doxygen tag files
-TAG_DIR=../tag
-
-# we need to include rapidjson from the environment folder
-CPPFLAGS+= -I../../../environment/rapidjson
-# no library to link so no need to add to LDFLAGS
-#LDFLAGS+= -L/lib/
-
-# we need the LV-CAP shared header file
-CPPFLAGS+= -I../LV_CAP_API_Constants
-
-# LV-CAP library code (uses #include <LV-CAP/*.h>
-CPPFLAGS+= -I../
-LDFLAGS+= -L../LV-CAP/
-# liblvcap depends on libmosquitto, list both here to get the correct order of linkage
-LIB+= -llvcap -lmosquitto
-
-# switch on secure MQTT connections
-CPPFLAGS+= -DSECURE_MQTT_BROKER
-
-# source, executable and object files
-SRC=
-OBJ=$(addsuffix .o,$(basename $(SRC)))
-HDR=$(addsuffix .h,$(basename $(SRC)))
-# program-wide header file
-PROG_HDR=
-EXEC=
 # TLS certificate settings, edit for developer details
 # set the country
 TLS_C=US
@@ -54,9 +15,6 @@ TLS_O=IMConsulting
 # org. Unit
 TLS_OU=Principal
 
-# extra header file dependencies
-ALL_HDR=
-
 # Application ID
 # Values used to produce the image tag (length of these two combined must be less
 # than 46 characters):
@@ -65,31 +23,32 @@ VENDOR=imconsulting
 # Application Name chosen as per section 4.1 of LV-CAP API document
 APP_NAME=node-red
 
-all: cert
-
-# all objects depend on the public headers
-%.o: %.cpp %.h $(ALL_HDR)
-
-$(EXEC): $(OBJ)
-	$(CXX) $(LDFLAGS) $(OBJ) $(LIB) -o $(EXEC)
-
-.PHONY: clean doc tests
-
-clean:
-	rm -f $(OBJ)
-	rm -f $(EXEC)
+all: certifcates
 
 # include rules for TLS certificates
 include ../LV-CAP/Makefile.tls.inc
 # release rules
 include ../LV-CAP/Makefile.rel.inc
 
-install: all install-cert
-	install -D $(EXEC) $(DESTDIR)/$(bindir)/$(EXEC)
+certifcates: cert
+# Copy the cert files to necessary location
+ifeq ($(strand),development)
+		cp $(APID).key dev/
+		cp $(APID).crt dev/
+else
+		cp $(APID).key prod/
+		cp $(APID).crt prod/
+endif
 
-.PHONY: install
+.PHONY: clean
 
-dockerize: cert
+clean:
+	rm -f $(OBJ)
+	rm -f $(EXEC)
+	rm -f dev/*
+	rm -f prod/*
+
+dockerize: certifcates
 
 	# Build the container usign the standard Dockerfile
 	docker build . -t $(VENDOR)/$(APP_NAME):$(APP_VER)
