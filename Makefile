@@ -1,7 +1,7 @@
 # Makefile to build the LV-CAP NodeRED application
 
 # Application version string. This is the EA Quality System version and must be incremented for every release.
-APP_VER=0.0.6
+APP_VER=1.0.0
 
 # TLS certificate settings, edit for developer details
 # set the country

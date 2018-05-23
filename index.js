@@ -3,7 +3,7 @@ var OAuth = require('oauth');
 var app = require('./openLV/index.js');
 
 //dev @ 0.0.6 prod @ 1.0.0
-var env = 'dev';//'prod';
+var env = 'prod';//'prod';
 
 var options = {
   containerId: 'imconsulting_node-red_00',
