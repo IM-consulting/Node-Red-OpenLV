@@ -3,12 +3,12 @@ var OAuth = require('oauth');
 var app = require('./openLV/index.js');
 
 //dev @ 0.0.6 prod @ 1.0.0
-var env = 'dev';//'prod';
+var env = 'prod';//'prod';
 
 var options = {
   containerId: 'imconsulting_node-red_00',
-  keyPath: './keys/' + env + '/imconsulting_node-red.key',
-  certPath: './keys/' + env + '/imconsulting_node-red.crt',
+  keyPath: './' + env + '/imconsulting_node-red.key',
+  certPath: './' + env + '/imconsulting_node-red.crt',
   rejectUnauthorized: false,//true,
   debug: true
 };

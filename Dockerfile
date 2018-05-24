@@ -10,8 +10,8 @@ WORKDIR /app
 
 # package.json contains Node-RED NPM module and node dependencies
 COPY package.json ./
-COPY /keys/dev ./keys/dev
-COPY /keys/prod ./keys/prod
+COPY /dev ./keys/dev
+COPY /prod ./keys/prod
 
 RUN npm install
 
